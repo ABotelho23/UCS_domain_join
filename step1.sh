@@ -1,8 +1,7 @@
 # Become root
-sudo bash <<"EOF"
-
-# Set the IP address of the UCS DC Master
 read -p "What is the IP of the LDAP server?? " MASTER_IP
+
+sudo bash <<"EOF"
 
 mkdir /etc/univention
 ssh -n root@${MASTER_IP} 'ucr shell | grep -v ^hostname=' >/etc/univention/ucr_master
