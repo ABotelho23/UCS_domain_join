@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # Become root
 read -p "What is the IP of the LDAP server?? " MASTER_IP
 
