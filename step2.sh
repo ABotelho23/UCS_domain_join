@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # Become root
 sudo bash <<"EOF"
 
