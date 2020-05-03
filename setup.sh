@@ -16,6 +16,8 @@ ssh -n root@"$realdc.$realad" 'ucr shell | grep -v ^hostname=' >/etc/univention/
 echo "master_ip="$realdc.$realad"" >>/etc/univention/ucr_master
 chmod 660 /etc/univention/ucr_master
 
+. /etc/univention/ucr_master
+
 # Create an account and save the password
 password="$(tr -dc A-Za-z0-9_ </dev/urandom | head -c20)"
 ssh -n root@"$realdc.$realad" udm computers/ubuntu create \
@@ -45,5 +47,5 @@ Priority: 900
 Session-Type: Additional
 Session:
         required  pam_mkhomedir.so umask=0022 skel=/etc/skel' | sudo tee /usr/share/pam-configs/mkhomedir
-sudo pam-auth-update -f
+sudo pam-auth-update
 sudo systemctl restart sssd
