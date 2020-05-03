@@ -1,5 +1,7 @@
 #!/bin/bash
 
+. /etc/univention/ucr_master
+
 read -p "What is the full hostname? (FQDN e.g. laptop1.example.com)? " hostnamead
 sudo hostnamectl set-hostname $hostnamead
 
