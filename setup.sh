@@ -9,7 +9,7 @@ realm discover
 echo "Your domain and its properties should be printed above. If they are not, check DNS config."
 read -p "What is the Kerberos realm? (dom.example.com)? " realmad
 read -p "What is the domain controllers short hostname ? ('dc' part of dc.dom.example.com)? " realdc
-shorthost = ${HOSTNAME%%.*}
+shorthost=${HOSTNAME%%.*}
 
 mkdir /etc/univention
 ssh -n root@"$realdc.$realad" 'ucr shell | grep -v ^hostname=' >/etc/univention/ucr_master
