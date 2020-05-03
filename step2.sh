@@ -1,10 +1,5 @@
 #!/bin/bash
 
-# Become root
-sudo bash <<"EOF"
-
-. /etc/univention/ucr_master
-
 # Download the SSL certificate
 mkdir -p /etc/univention/ssl/ucsCA/
 wget -O /etc/univention/ssl/ucsCA/CAcert.pem \
@@ -21,10 +16,6 @@ printf '%s' "$password" >/etc/ldap.secret
 chmod 0400 /etc/ldap.secret
 
 # Create ldap.conf
-cat >/etc/ldap/ldap.conf <<__EOF__
-TLS_CACERT /etc/univention/ssl/ucsCA/CAcert.pem
+echo 'TLS_CACERT /etc/univention/ssl/ucsCA/CAcert.pem
 URI ldap://$ldap_master:7389
-BASE $ldap_base
-__EOF__
-
-EOF
+BASE $ldap_base' | sudo tee /etc/ldap/ldap.conf
