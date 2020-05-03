@@ -1,5 +1,7 @@
 #!/bin/bash
 
+. /etc/univention/ucr_master
+
 # Download the SSL certificate
 mkdir -p /etc/univention/ssl/ucsCA/
 wget -O /etc/univention/ssl/ucsCA/CAcert.pem \
