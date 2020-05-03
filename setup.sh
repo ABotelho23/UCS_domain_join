@@ -12,8 +12,8 @@ read -p "What is the domain controllers short hostname ? ('dc' part of dc.dom.ex
 shorthost=${HOSTNAME%%.*}
 
 mkdir /etc/univention
-echo "Connecting to "$realmdc.$realad" UCS server and pulling UCS config."
-ssh -n root@"$realdc.$realad" 'ucr shell | grep -v ^hostname=' >/etc/univention/ucr_master
+echo "Connecting to "$realmdc.$realmad" UCS server and pulling UCS config."
+ssh -n root@"$realmdc.$realmad" 'ucr shell | grep -v ^hostname=' >/etc/univention/ucr_master
 echo "master_ip="$realdc.$realad"" >>/etc/univention/ucr_master
 chmod 660 /etc/univention/ucr_master
 
@@ -22,7 +22,7 @@ chmod 660 /etc/univention/ucr_master
 # Create an account and save the password
 echo "Creating computer account on "$realdc.$realad" UCS server. Connecting..."
 password="$(tr -dc A-Za-z0-9_ </dev/urandom | head -c20)"
-ssh -n root@"$realdc.$realad" udm computers/ubuntu create \
+ssh -n root@"$realmdc.$realmad" udm computers/ubuntu create \
     --position "cn=computers,${ldap_base}" \
     --set name=$(hostname) --set password="${password}" \
     --set operatingSystem="$(lsb_release -is)" \
