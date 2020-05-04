@@ -30,7 +30,7 @@ ssh -n root@$REALMDC.$REALMAD udm computers/ubuntu create \
 printf '%s' "$password" >/etc/ldap.secret
 chmod 0400 /etc/ldap.secret
 
-echo "Performing domain join operation. Password for domain admin will be prompted.
+echo "Performing domain join operation. Password for domain admin will be prompted."
 sudo realm join -v -U "$REALMADMIN" "$REALMAD"
 
 # Create ldap.conf
@@ -51,11 +51,11 @@ sudo pam-auth-update --enable mkhomedir
 sudo systemctl restart sssd
 
 #prompt
-read -r -p "COMPLETE! REBOOT NOW? [y/N] " rebootnow
+read -r -p "UCS Domain Join Complete! REBOOT NOW? [y/N] " rebootnow
 if [[ "$rebootnow" =~ ^([yY][eE][sS]|[yY])+$ ]]
 then
 echo "Rebooting!"
 sudo reboot
 else
-echo "Reboot not selected. Please ensure you reboot at a later time."
+read -p "Reboot not selected. Press any key to finish with script."
 fi
