@@ -58,5 +58,5 @@ then
 echo "Rebooting now!"
 sudo reboot
 else
-read -p "Reboot not selected. Please ensure you reboot at a later time. Press any key to continue. "
+echo "Rebooted skipped. Terminating script..."
 fi
