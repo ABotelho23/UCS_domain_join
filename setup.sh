@@ -52,11 +52,11 @@ sudo pam-auth-update --enable mkhomedir
 sudo systemctl restart sssd
 
 #prompt
-read -r -p "COMPLETE! REBOOT NOW? [y/N] " REBOOTNOW
-if [[ "$REBOOTNOW" =~ ^([yY][eE][sS]|[yY])+$ ]]
+read -r -p "COMPLETE! REBOOT NOW? [y/N] " rebootnow
+if [[ "$rebootnow" =~ ^([yY][eE][sS]|[yY])+$ ]]
 then
-echo "Rebooting now!"
+echo "Rebooting!"
 sudo reboot
 else
-echo "Rebooted skipped. Terminating script..."
+echo "Reboot not selected. Please ensure you reboot at a later time."
 fi
