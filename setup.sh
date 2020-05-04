@@ -23,7 +23,7 @@ chmod 660 /etc/univention/ucr_master
 # Create an account and save the password
 echo "Creating computer account on "$REALMDC.$REALMAD" UCS server. Password for domain admin will be prompted."
 password="$(tr -dc A-Za-z0-9_ </dev/urandom | head -c20)"
-ssh -n root@$REALMDC.$REALMAD udm computers/ubuntu create \
+ssh -n root@$REALMDC.$REALMAD udm computers/linux create \
     --position "cn=computers,${ldap_base}" \
     --set name=$(hostname) --set password="${password}" \
     --set operatingSystem="$(lsb_release -is)" \
