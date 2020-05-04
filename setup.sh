@@ -2,8 +2,8 @@
 #!/bin/bash
 echo "Installing necessary packages..."
 sudo apt -y install realmd libnss-sss libpam-sss sssd sssd-tools adcli samba-common-bin oddjob oddjob-mkhomedir packagekit -y
-echo "Installed necessary packages."
-echo "Printing discovered Kerberos realms..."
+clear
+echo "Completed installation of necessary packages. Now printing discovered Kerberos realms..."
 realm discover
 
 echo "Your domain and its properties should be printed above. If they are not, check DNS config."
