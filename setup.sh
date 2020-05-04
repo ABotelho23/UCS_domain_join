@@ -39,7 +39,8 @@ echo 'TLS_CACERT /etc/univention/ssl/ucsCA/CAcert.pem
 URI ldap://$ldap_master:7389
 BASE $ldap_base' | sudo tee /etc/ldap/ldap.conf
 
-echo "Ensure activate mkhomedir is selected in the next prompt."
+read -p "Ensure activate mkhomedir is selected using your arrow keys and space bar in the next prompt. Press ANY KEY to continue."
+echo "Ensure activate mkhomedir is selected using your arrow keys and space bar in the next prompt."
 
 echo 'Name: activate mkhomedir
 Default: yes
@@ -47,5 +48,15 @@ Priority: 900
 Session-Type: Additional
 Session:
         required  pam_mkhomedir.so umask=0022 skel=/etc/skel' | sudo tee /usr/share/pam-configs/mkhomedir
-sudo pam-auth-update
+DEBIAN_FRONTEND=noninteractive pam-auth-update --force
 sudo systemctl restart sssd
+
+#prompt
+read -r -p "COMPLETE! REBOOT NOW? [y/N] " REBOOTNOW
+if [[ "$REBOOTNOW" =~ ^([yY][eE][sS]|[yY])+$ ]]
+then
+echo "Rebooting now!"
+sudo reboot
+else
+read -p "Reboot not selected. Please ensure you reboot at a later time. Press any key to continue. "
+fi
