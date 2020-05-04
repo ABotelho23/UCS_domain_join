@@ -40,16 +40,15 @@ echo 'TLS_CACERT /etc/univention/ssl/ucsCA/CAcert.pem
 URI ldap://$ldap_master:7389
 BASE $ldap_base' | sudo tee /etc/ldap/ldap.conf
 
-read -p "Ensure 'activate mkhomedir' is selected using your arrow keys and space bar in the next prompt. Press ANY KEY to continue."
-echo "Ensure activate mkhomedir is selected using your arrow keys and space bar in the next prompt."
 
+echo "Activating mkhomedir module..."
 echo 'Name: activate mkhomedir
 Default: yes
 Priority: 900
 Session-Type: Additional
 Session:
         required  pam_mkhomedir.so umask=0022 skel=/etc/skel' | sudo tee /usr/share/pam-configs/mkhomedir
-sudo pam-auth-update
+sudo pam-auth-update --enable mkhomedir
 sudo systemctl restart sssd
 
 #prompt
