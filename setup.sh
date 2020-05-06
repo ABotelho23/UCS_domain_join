@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#Killing dkpg processes
+#Killing dpkg processes
 sudo killall dpkg
 
 echo "Installing necessary packages..."
