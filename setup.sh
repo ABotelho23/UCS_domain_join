@@ -1,5 +1,10 @@
 #!/bin/bash
 
+if [ "$EUID" -ne 0 ]
+  then read -p "Please run with sudo or as root. Press any key to close script."
+  exit
+fi
+
 #Killing dpkg processes
 sudo killall dpkg
 
