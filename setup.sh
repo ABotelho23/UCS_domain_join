@@ -63,7 +63,7 @@ sudo pam-auth-update --enable mkhomedir
 sudo systemctl restart sssd
 
 sudocheck=0
-while [ sudocheck -ne 1 ]
+while [ $sudocheck -ne 1 ]
 do
   read -p "Add a domain user to local sudoers? Y/N " sudoinput
     if [[ "$sudoinput" =~ ^([yY][eE][sS]|[yY])+$ ]]
