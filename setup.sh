@@ -5,7 +5,9 @@ if [ "$EUID" -ne 0 ]
   exit
 fi
 
-#Killing dpkg processes
+#Killing dpkg processes and unattended upgrade service
+echo "Killing unattended upgrades service temporarily and killing all dpkg processes to ensure lock for package installs."
+sudo systemctl stop unattended-upgrades.service
 sudo killall dpkg
 
 echo "Installing necessary packages..."
