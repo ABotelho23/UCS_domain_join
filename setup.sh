@@ -73,7 +73,7 @@ do
         echo "$sudoun ALL=(ALL:ALL) ALL" | sudo tee /etc/sudoers.d/$sudoun
         sudo chown root:root /etc/sudoers.d/$sudoun
         sudo chmod 744 /etc/sudoers.d/$sudoun
-        echo "Done adding $sudoun"
+        echo "Done adding user $sudoun@$REALMAD"
       
     elif [[ "$sudoinput" =~ ^([nN][oO]|[nN])+$ ]]
     then
