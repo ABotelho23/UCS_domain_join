@@ -84,9 +84,6 @@ do
     fi
 done
 
-#add a domain user to local sudoers check
-read -r -p "UCS Domain Join Complete! REBOOT NOW? [y/N] " sudocheck
-
 #prompt
 read -r -p "UCS Domain Join Complete! REBOOT NOW? [y/N] " rebootnow
 if [[ "$rebootnow" =~ ^([yY][eE][sS]|[yY])+$ ]]
