@@ -62,6 +62,27 @@ Session:
 sudo pam-auth-update --enable mkhomedir
 sudo systemctl restart sssd
 
+sudocheck=0
+while [ sudocheck =! 1 ]
+  read -p "Add a domain user to local sudoers? Y/N " sudoinput
+    if [[ "$sudoinput" =~ ^([yY][eE][sS]|[yY])+$ ]]
+      read -p "Alright! What's the username? Exclude the @$REALMAD part. " sudoun
+      echo "Adding $sudoun@$REALMAD to /etc/sudoers.d directory.."
+        echo "$sudoun ALL=(ALL:ALL) ALL" | sudo tee /etc/sudoers.d/$sudoun
+        sudo chown root:root /etc/sudoers.d/$sudoun
+        sudo chmod 744 /etc/sudoers.d/$sudoun
+        echo "Done adding $sudoun"
+      
+    elif [[ "$sudoinput" =~ ^([nN][oO]|[nN])+$ ]]
+      echo "Alright, moving on."
+      sudocheck=1
+    
+    else echo "That input doesn't make sense. Please try again."
+done
+
+#add a domain user to local sudoers check
+read -r -p "UCS Domain Join Complete! REBOOT NOW? [y/N] " sudocheck
+
 #prompt
 read -r -p "UCS Domain Join Complete! REBOOT NOW? [y/N] " rebootnow
 if [[ "$rebootnow" =~ ^([yY][eE][sS]|[yY])+$ ]]
