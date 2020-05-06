@@ -66,6 +66,7 @@ sudocheck=0
 while [ sudocheck =! 1 ]
   read -p "Add a domain user to local sudoers? Y/N " sudoinput
     if [[ "$sudoinput" =~ ^([yY][eE][sS]|[yY])+$ ]]
+    then
       read -p "Alright! What's the username? Exclude the @$REALMAD part. " sudoun
       echo "Adding $sudoun@$REALMAD to /etc/sudoers.d directory.."
         echo "$sudoun ALL=(ALL:ALL) ALL" | sudo tee /etc/sudoers.d/$sudoun
@@ -74,10 +75,12 @@ while [ sudocheck =! 1 ]
         echo "Done adding $sudoun"
       
     elif [[ "$sudoinput" =~ ^([nN][oO]|[nN])+$ ]]
+    then
       echo "Alright, moving on."
       sudocheck=1
     
     else echo "That input doesn't make sense. Please try again."
+    fi
 done
 
 #add a domain user to local sudoers check
