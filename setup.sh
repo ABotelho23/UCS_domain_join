@@ -65,7 +65,7 @@ sudo systemctl restart sssd
 sudocheck=0
 while [ "$sudocheck" -ne 1 ]
 do
-  read -p "Add a domain user to local sudoers? Y/N " sudoinput
+  read -p "Add a domain user to local sudoers? (This gives the user admin permissions for this computer) Y/N " sudoinput
     if [[ "$sudoinput" =~ ^([yY][eE][sS]|[yY])+$ ]]
     then
       read -p "Alright! What's the username? Exclude the @$REALMAD part. " sudoun
