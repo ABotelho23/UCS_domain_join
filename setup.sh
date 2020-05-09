@@ -70,7 +70,7 @@ do
     then
       read -p "Alright! What's the username? Exclude the @$REALMAD part. " sudoun
       echo "Adding $sudoun@$REALMAD to /etc/sudoers.d directory.."
-        echo "$sudoun ALL=(ALL:ALL) ALL" | sudo tee -a /etc/sudoers
+        echo "$sudoun@$REALMAD ALL=(ALL:ALL) ALL" | sudo tee -a /etc/sudoers
         echo "Done adding user $sudoun@$REALMAD"
       
     elif [[ "$sudoinput" =~ ^([nN][oO]|[nN])+$ ]]
