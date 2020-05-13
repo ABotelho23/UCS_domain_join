@@ -62,6 +62,9 @@ Session:
 sudo pam-auth-update --enable mkhomedir
 sudo systemctl restart sssd
 
+# Make the domain the default login domain for the login screen. Simplifies logins.
+sudo sed -i "/sssd/a default_domain_suffix = $REALMAD" /etc/sssd/sssd.conf
+
 sudocheck=0
 while [ "$sudocheck" -ne 1 ]
 do
