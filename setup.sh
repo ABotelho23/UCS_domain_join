@@ -3,15 +3,9 @@
 if [ "$EUID" -ne 0 ]
   then read -p "Please run with sudo or as root. Press any key to close script."
   exit
-fi
-
-#Killing dpkg processes and unattended upgrade service
-echo "Killing unattended upgrades service temporarily and killing all dpkg processes to ensure lock for package installs."
-sudo systemctl stop unattended-upgrades.service
-sudo killall dpkg
 
 echo "Installing necessary packages..."
-sudo apt -y install realmd libnss-sss libpam-sss sssd sssd-tools adcli samba-common-bin oddjob oddjob-mkhomedir packagekit
+sudo dnf install -y realmd sssd sssd-client sssd-tools adcli samba-common oddjob
 clear
 echo "Completed installation of necessary packages. Now printing discovered Kerberos realms..."
 realm discover
@@ -51,15 +45,6 @@ echo "TLS_CACERT /etc/univention/ssl/ucsCA/CAcert.pem
 URI ldap://$ldap_master:7389
 BASE $ldap_base" | sudo tee /etc/ldap/ldap.conf
 
-
-echo "Activating mkhomedir module..."
-echo 'Name: activate mkhomedir
-Default: yes
-Priority: 900
-Session-Type: Additional
-Session:
-        required  pam_mkhomedir.so umask=0022 skel=/etc/skel' | sudo tee /usr/share/pam-configs/mkhomedir
-sudo pam-auth-update --enable mkhomedir
 sudo systemctl restart sssd
 
 # Make the domain the default login domain for the login screen. Simplifies logins.
