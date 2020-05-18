@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo "Installing necessary packages..."
-sudo dnf install -y realmd sssd sssd-client sssd-tools adcli samba-common oddjob
+sudo dnf install -y realmd sssd sssd-client sssd-tools adcli samba-common oddjob lsb
 clear
 echo "Completed installation of necessary packages. Now printing discovered Kerberos realms..."
 realm discover
