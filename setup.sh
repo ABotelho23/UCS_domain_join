@@ -1,9 +1,5 @@
 #!/bin/bash
 
-if [ "$EUID" -ne 0 ]
-  then read -p "Please run with sudo or as root. Press any key to close script."
-  exit
-
 echo "Installing necessary packages..."
 sudo dnf install -y realmd sssd sssd-client sssd-tools adcli samba-common oddjob
 clear
