@@ -25,7 +25,7 @@ echo "Creating computer account on $REALMDC.$REALMAD UCS server. Password for do
 password="$(tr -dc A-Za-z0-9_ </dev/urandom | head -c20)"
 ssh -n root@"$REALMDC.$REALMAD" udm computers/linux create \
     --position "cn=computers,${ldap_base}" \
-    --set name="$(hostname)" \
+    --set name="$(hostname -s)" \
     --set password="${password}" \
     --set operatingSystem="$(lsb_release -is)" \
     --set operatingSystemVersion="$(lsb_release -rs)"
