@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo "Installing necessary packages..."
-sudo dnf install -y realmd sssd sssd-client sssd-tools adcli samba-common oddjob lsb
+sudo dnf install -y realmd sssd sssd-client sssd-tools sssd-ad adcli samba-common oddjob lsb
 clear
 echo "Completed installation of necessary packages. Now printing discovered Kerberos realms..."
 realm discover
@@ -28,12 +28,12 @@ ssh -n root@"$REALMDC.$REALMAD" udm computers/linux create \
     --set name="$(hostname -s)" \
     --set password="${password}" \
     --set operatingSystem="$(lsb_release -is)" \
-    --set operatingSystemVersion="$(lsb_release -rs)"
+    --set operatingSystemVersion="$(lsb_release -rs | cut -d"." -f1)"
 printf '%s' "$password" >/etc/ldap.secret
 chmod 0400 /etc/ldap.secret
 
 echo "Performing domain join operation. Password for domain admin will be prompted."
-sudo realm join -v -U "$REALMADMIN" "$REALMAD"
+sudo realm join -v -U --automatic-id-mapping=no "$REALMADMIN" "$REALMAD"
 
 # Create ldap.conf
 sudo rm /etc/ldap/ldap.conf
