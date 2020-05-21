@@ -33,13 +33,7 @@ printf '%s' "$password" >/etc/ldap.secret
 chmod 0400 /etc/ldap.secret
 
 echo "Performing domain join operation. Password for domain admin will be prompted."
-sudo realm join -v -U --automatic-id-mapping=no "$REALMADMIN" "$REALMAD"
-
-# Create ldap.conf
-sudo rm /etc/ldap/ldap.conf
-echo "TLS_CACERT /etc/univention/ssl/ucsCA/CAcert.pem
-URI ldap://$ldap_master:7389
-BASE $ldap_base" | sudo tee /etc/ldap/ldap.conf
+sudo realm join --automatic-id-mapping=no -v -U "$REALMADMIN" "$REALMAD"
 
 sudo systemctl restart sssd
 
