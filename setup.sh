@@ -65,6 +65,8 @@ sudo systemctl restart sssd
 # Make the domain the default login domain for the login screen. Simplifies logins.
 sudo sed -i "/sssd/a default_domain_suffix = $REALMAD" /etc/sssd/sssd.conf
 
+sudo systemctl restart sssd
+
 sudocheck=0
 while [ "$sudocheck" -ne 1 ]
 do
@@ -76,7 +78,7 @@ do
         echo "$sudoun ALL=(ALL:ALL) ALL" | sudo tee /etc/sudoers.d/$sudoun
         sudo chown root:root /etc/sudoers.d/$sudoun
         sudo chmod 440 /etc/sudoers.d/$sudoun
-        sudo usermod -aG sudo $sudoun
+        sudo usermod -aG sudo "$sudoun@$REALMAD"
         echo "Done adding user $sudoun@$REALMAD"
       
     elif [[ "$sudoinput" =~ ^([nN][oO]|[nN])+$ ]]
